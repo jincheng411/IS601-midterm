@@ -32,3 +32,8 @@ def test_create_calculation():
     cal = Calculation.create(2, 3, division)
     assert isinstance(cal, Calculation)
 
+def test_division_by_zero_exception():
+    '''Test should throw an exception if divide by zero'''
+    cal = Calculation(0, 0, division)
+    with pytest.raises(ZeroDivisionError):
+        cal.perform()

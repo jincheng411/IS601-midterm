@@ -2,6 +2,7 @@ from decimal import Decimal
 from typing import Callable
 
 from app.calculation import Calculation
+from app.history import History
 from app.operations import add, division, multiply, subtract
 
 

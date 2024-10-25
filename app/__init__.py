@@ -11,12 +11,8 @@ class App():
         self.load_plugins()  # Load plugins dynamically
 
     def start(self):
-        # self.command_handler.register_command("exit", ExitCommand())
-        # self.command_handler.register_command("add", AddCommand())
-        # self.command_handler.register_command("substract", SubtractCommand())
-        # self.command_handler.register_command("divide", DivideCommand())
-        # self.command_handler.register_command("multiply", MultiplyCommand())
         print("Welcome to the calculator, type 'exit' to stop.")
+        self.command_handler.execute_command('menu')
         while True:
             user_input = input(">>> ").strip()
             self.command_handler.execute_command(user_input)

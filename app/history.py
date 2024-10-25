@@ -30,7 +30,7 @@ class History:
 
         # Create a new DataFrame row with all the details
         new_record = pd.DataFrame([{
-            "Datetime": datetime.now(),
+            "Datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "Number1": calculation.a,
             "Number2": calculation.b,
             "Operation": calculation.operation.__name__,
@@ -56,10 +56,14 @@ class History:
 
     @classmethod
     def print_history(cls):
-        """Return a formatted string of the history."""
-        output = ""
-        for index, row in cls.history.iterrows():
-            output += f"{index + 1}. [{row['Datetime']}] {row['Number1']} {row['Operation']} {row['Number2']} = {row['Result']}\n"
+        if cls.history.empty:
+            return "No history to display."
+
+        # Format the headers as CSV-like output
+        output = "Datetime,Number1,Number2,Operation,Result\n"
+        for _, row in cls.history.iterrows():
+            output += f"{row['Datetime']},{row['Number1']},{row['Number2']},{row['Operation']},{row['Result']}\n"
+        print(output.strip())
         return output.strip()
 
     @classmethod

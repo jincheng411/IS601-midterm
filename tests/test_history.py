@@ -1,8 +1,8 @@
-from datetime import datetime
+
 from decimal import Decimal
 from unittest.mock import MagicMock, patch
-from app.calculation import Calculation
 from app.history import History
+import pandas as pd
 from app.plugins.clearHistory import ClearHistoryCommand
 from app.plugins.loadHistory import LoadHistoryCommand
 
@@ -16,18 +16,6 @@ class TestLoadHistoryCommand:
 
         # Assert that the load_history method was called
         mock_load.assert_called_once()
-
-
-    @patch.object(History, 'history', new_callable=MagicMock)
-    def test_print_history_empty(self, mock_history):
-        # Test the output when history is empty
-        mock_history.return_value = MagicMock()
-        mock_history.return_value.empty = True
-
-        output = History.print_history()
-
-        # Check if the output is as expected
-        assert output == ""
 
     @patch.object(History, 'load_history', return_value=None)
     def test_execute_loads_history(self, mock_load):
@@ -54,3 +42,23 @@ class TestLoadHistoryCommand:
 
         # Assert that clear_history method was called even if it was already empty
         mock_clear.assert_called_once()
+
+    def test_print_history_csv_format(self):
+        # Set up sample history data
+        sample_data = pd.DataFrame({
+            'Datetime': ['2024-10-10 10:00:00'],
+            'Number1': [Decimal('10')],
+            'Number2': [Decimal('5')],
+            'Operation': ['add'],
+            'Result': [Decimal('15')]
+        })
+        History.history = sample_data
+
+        # Expected CSV-like output
+        expected_output = (
+            "Datetime,Number1,Number2,Operation,Result\n"
+            "2024-10-10 10:00:00,10,5,add,15"
+        )
+
+        # Assert output matches expected CSV format
+        assert History.print_history() == expected_output

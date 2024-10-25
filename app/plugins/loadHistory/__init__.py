@@ -6,4 +6,4 @@ class LoadHistoryCommand(Command):
     def execute(self, args: list):
         """Load history from the CSV file and print a confirmation."""
         History.load_history()
-        print("History loaded from CSV file.")
+        History.print_history()

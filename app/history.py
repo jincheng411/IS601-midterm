@@ -15,7 +15,7 @@ class History:
         try:
             cls.history = pd.read_csv(cls.file_path, parse_dates=["Datetime"])
         except FileNotFoundError:
-            cls.history = pd.DataFrame(columns=["Datetime", "Number1", "Number2", "Operation", "Result"])
+            print("History file not found. Starting with an empty history.")
 
     @classmethod
     def save_history(cls):
@@ -38,8 +38,10 @@ class History:
         }])
 
         # Concatenate the new row to the history DataFrame
-        cls.history = pd.concat([cls.history, new_record], ignore_index=True)
-        cls.save_history()
+        if not new_record.isna().all(axis=None):
+            # Concatenate the new row to the history DataFrame if it has valid data
+            cls.history = pd.concat([cls.history, new_record], ignore_index=True)
+            cls.save_history()
 
     @classmethod
     def get_history(cls) -> pd.DataFrame:

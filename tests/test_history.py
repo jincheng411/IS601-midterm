@@ -68,38 +68,42 @@ class TestLoadHistoryCommand:
 class TestDeleteHistoryCommand:
     def setup_method(self):
         # Set up sample history data for testing
+        # History.clear_history()
         History.history = pd.DataFrame({
-            'Datetime': ['2024-10-10 10:00:00', '2024-10-11 11:00:00'],
-            'Number1': [Decimal('10'), Decimal('20')],
-            'Number2': [Decimal('5'), Decimal('10')],
-            'Operation': ['add', 'subtract'],
-            'Result': [Decimal('15'), Decimal('10')]
+            'Datetime': ['2024-10-10 10:00:00', '2024-10-11 11:00:00', '2024-10-12 12:00:00', '2024-10-13 13:00:00'],
+            'Number1': [Decimal('10'), Decimal('20'), Decimal('30'), Decimal('40')],
+            'Number2': [Decimal('5'), Decimal('10'), Decimal('15'), Decimal('20')],
+            'Operation': ['add', 'subtract', 'multiply', 'divide'],
+            'Result': [Decimal('15'), Decimal('10'), Decimal('45'), Decimal('2')]
         })
+        History.history.to_csv('calculations.csv', index=False)
 
-    def test_delete_valid_line(self, capsys):
+    @patch("app.history.History.history.to_csv")
+    def test_delete_valid_line(self, mock_to_csv, capsys):
         command = DeleteHistoryCommand()
-        command.execute(["1"])
+        command.execute(["1"])  # Attempt to delete the first line
 
         # Capture and verify output
         captured = capsys.readouterr()
         assert "Deleted line 1 from history." in captured.out
-        assert len(History.history) == 1
-        assert History.history.iloc[0]['Result'] == Decimal('10')
+        assert len(History.history) == 3  # Expect 3 rows after deletion
+        assert History.history.iloc[0]['Result'] == Decimal('10')  # Check first line now is the previous second line
 
-    # def test_delete_invalid_line(self, capsys):
-    #     command = DeleteHistoryCommand()
-    #     command.execute(["5"])
 
-    #     # Capture and verify output for invalid line number
-    #     captured = capsys.readouterr()
-    #     assert "Invalid line number." in captured.out
-    #     assert len(History.history) == 2
+    def test_delete_invalid_line(self, capsys):
+        command = DeleteHistoryCommand()
+        command.execute(["5"])
 
-    # def test_delete_non_integer_input(self, capsys):
-    #     command = DeleteHistoryCommand()
-    #     command.execute(["abc"])
+        # Capture and verify output for invalid line number
+        captured = capsys.readouterr()
+        assert "Invalid line number." in captured.out
+        assert len(History.history) == 4
 
-    #     # Capture and verify output for non-integer input
-    #     captured = capsys.readouterr()
-    #     assert "Please provide a valid line number." in captured.out
-    #     assert len(History.history) == 2
+    def test_delete_non_integer_input(self, capsys):
+        command = DeleteHistoryCommand()
+        command.execute(["abc"])
+
+        # Capture and verify output for non-integer input
+        captured = capsys.readouterr()
+        assert "Please provide a valid line number." in captured.out
+        assert len(History.history) == 4

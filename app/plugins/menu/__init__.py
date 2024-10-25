@@ -7,3 +7,7 @@ class MenuCommand(Command):
         print("subtract <num1> <num2>")
         print("multiply <num1> <num2>")
         print("divide <num1> <num2>")
+        print("loadHistory")
+        print("deleteHistory <line number>")
+        print("clearHistory")
+

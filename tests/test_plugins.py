@@ -1,7 +1,6 @@
 '''test cases for commands'''
 
 import pytest
-
 from app.commands import CommandHandler
 from app.plugins.add import AddCommand
 from app.plugins.divide import DivideCommand
@@ -94,3 +93,4 @@ def test_unknown_command(capsys, command_handler):
     command_handler.execute_command('abc 10 5')
     captured = capsys.readouterr()
     assert "No such command: abc\n" in captured.out
+

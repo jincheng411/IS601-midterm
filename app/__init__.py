@@ -28,6 +28,6 @@ class App():
                     cls = getattr(module, command_class)
                     try:
                         if issubclass(cls, (Command)) and hasattr(cls, 'execute'):
-                            self.command_handler.register_command(module_name, cls())
+                            self.command_handler.register_command(module_name.lower(), cls())
                     except TypeError:
                         continue

@@ -1,7 +1,7 @@
 # IS601-midterm
 
 ## Introduction Video
-[![Project Overview Video]](https://youtu.be/PRXJG9NbGaA)
+[![Project Overview Video]](https://youtu.be/AFmwxwuTzlk)
 
 ## Table of Contents
 - [Project Overview](#project-overview)

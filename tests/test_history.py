@@ -80,7 +80,7 @@ class TestDeleteHistoryCommand:
             'Operation': ['add', 'subtract', 'multiply', 'divide'],
             'Result': [Decimal('15'), Decimal('10'), Decimal('45'), Decimal('2')]
         })
-        History.history.to_csv(os.getenv("CSV_FILE_PATH"), index=False)
+        History.history.to_csv(os.path.abspath(os.getenv("CSV_FILE_PATH")), index=False)
 
     @patch("app.history.History.history.to_csv")
     def test_delete_valid_line(self, mock_to_csv, capsys):

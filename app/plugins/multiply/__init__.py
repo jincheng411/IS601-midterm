@@ -1,4 +1,5 @@
 from decimal import Decimal
+import logging
 from app.calculator import Calculator
 from app.commands import Command
 
@@ -12,3 +13,4 @@ class MultiplyCommand(Command):
         num2 = Decimal(args[1])
         result = Calculator.multiply(num1, num2)
         print(f"{num1} * {num2} = {result}.")
+        logging.info(f"multiplying {num1} and {num2}")

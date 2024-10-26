@@ -29,4 +29,4 @@ def setup_logging():
         ]
     )
 
-    logging.info("11Logging is set up. Log level: %s", log_level)
+    logging.info("Logging is set up. Log level: %s", log_level)

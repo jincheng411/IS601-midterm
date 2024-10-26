@@ -1,2 +1,8 @@
 2024-10-26 03:18:50,346 - INFO - 11Logging is set up. Log level: INFO
 2024-10-26 03:18:53,449 - INFO - Adding 2 and 4
+2024-10-26 03:23:55,903 - INFO - 11Logging is set up. Log level: INFO
+2024-10-26 03:24:01,751 - ERROR - Error: Division by zero. when 2 / 0
+2024-10-26 03:38:13,261 - INFO - Logging is set up. Log level: INFO
+2024-10-26 03:38:25,709 - INFO - save to csv
+2024-10-26 03:38:25,709 - WARNING - History cleared.
+2024-10-26 03:38:58,093 - INFO - exit the program

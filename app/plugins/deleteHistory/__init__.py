@@ -1,5 +1,6 @@
 
 
+import logging
 from app.commands import Command
 from app.history import History
 
@@ -15,6 +16,7 @@ class DeleteHistoryCommand(Command):
             if line_number < 0 or line_number >= len(History.history):
                 print("Invalid line number.")
                 print(line_number)
+                logging.warning(f"Invalid line number {line_number}")
                 return
 
             # Drop the specified row and reset the index
@@ -22,7 +24,9 @@ class DeleteHistoryCommand(Command):
             # Save updated history to CSV
 
             History.history.to_csv('calculations.csv', index=False)
+            logging.info(f"Deleted line {line_number + 1} from history.")
             print(f"Deleted line {line_number + 1} from history.")
 
         except ValueError:
             print("Please provide a valid line number.")
+            logging.error("Invalid input")

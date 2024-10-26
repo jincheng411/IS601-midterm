@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 from decimal import Decimal
 from datetime import datetime
@@ -15,12 +16,14 @@ class History:
         try:
             cls.history = pd.read_csv(cls.file_path, parse_dates=["Datetime"])
         except FileNotFoundError:
+            logging.error("History file not found. Starting with an empty history.")
             print("History file not found. Starting with an empty history.")
 
     @classmethod
     def save_history(cls):
         """Save the current history to a CSV file."""
         cls.history.to_csv(cls.file_path, index=False)
+        logging.info("save to csv")
 
     @classmethod
     def add_calculation(cls, calculation: Calculation):
@@ -42,7 +45,7 @@ class History:
             # Concatenate the new row to the history DataFrame if it has valid data
             cls.history = pd.concat([cls.history, new_record], ignore_index=True)
             cls.save_history()
-
+            logging.info("save to history list")
     @classmethod
     def get_history(cls) -> pd.DataFrame:
         """Return the entire calculation history."""

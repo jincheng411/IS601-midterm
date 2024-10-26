@@ -46,6 +46,8 @@
 *Implementation: Each command is encapsulated in its own class, inheriting from a Command interface with an execute method. Commands are registered and managed by a CommandHandler class, which maps command strings to their respective classes.
 Impact: By isolating commands into separate classes, adding new commands becomes straightforward without modifying existing code, enhancing extensibility.*
 
+For details on the `command pattern` implementation, see [command pattern in `__init__.py`](https://github.com/jincheng411/IS601-midterm/blob/master/app/commands/__init__.py).
+
 2. lugin Pattern:
 
 *Implementation: Commands are dynamically loaded as plugins using importlib and pkgutil. Each plugin can be registered automatically in load_plugins, making it easy to integrate additional functionality.

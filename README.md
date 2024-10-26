@@ -53,10 +53,13 @@ For details on the `command pattern` implementation, see [command pattern in `__
 *Implementation: Commands are dynamically loaded as plugins using importlib and pkgutil. Each plugin can be registered automatically in load_plugins, making it easy to integrate additional functionality.
 Impact: This allows for a modular approach where new features can be added as plugins rather than hardcoded in the application, encouraging separation of concerns.*
 
+For details on the `load_plugins` function implementation, see [load_plugins in `app.py`]([https://github.com/username/project-name/blob/main/app.py#L30-L50](https://github.com/jincheng411/IS601-midterm/blob/master/app/__init__.py)).
+
 3. Factory Pattern:
 
 *Implementation: A CalculationFactory could be introduced to instantiate Calculation objects based on different operations (e.g., addition, subtraction).
 Impact: This makes the code more scalable, as new calculation types can be added by updating the factory without changing the rest of the codebase.*
+For details on the `factory pattern`  implementation, see [factory in `app.py`](https://github.com/jincheng411/IS601-midterm/blob/master/app/calculation.py#L11-L13).
 
 ## Logging Strategy
 *The logging strategy is designed for flexible, level-based logging that can be configured via environment variables, with separate configurations for development and production.*

@@ -8,7 +8,7 @@ from app.calculation import Calculation
 class History:
     # Load environment variables from .env file
     load_dotenv()
-    file_path = os.getenv("CSV_FILE_PATH")
+    file_path = os.path.abspath(os.getenv("CSV_FILE_PATH"))
     history = pd.DataFrame(columns=["Datetime", "Number1", "Number2", "Operation", "Result"])
 
     @classmethod
@@ -17,12 +17,15 @@ class History:
         try:
             cls.history = pd.read_csv(cls.file_path, parse_dates=["Datetime"])
         except FileNotFoundError:
+            os.makedirs(cls.file_path)
             logging.error("History file not found. Starting with an empty history.")
             print("History file not found. Starting with an empty history.")
 
     @classmethod
     def save_history(cls):
         """Save the current history to a CSV file."""
+        if not os.path.exists(cls.file_path):
+          os.makedirs(cls.file_path)
         cls.history.to_csv(cls.file_path, index=False)
         logging.info("save to csv")
 

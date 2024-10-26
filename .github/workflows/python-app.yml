@@ -30,5 +30,7 @@ jobs:
     - name: Run tests with environment variables
       env:
         CSV_FILE_PATH: "./calculations.csv"  # Define the path as an environment variable
+        LOG_LEVEL: "INFO"
+        LOG_FILE: "log/app.log"
       run: pytest 
 

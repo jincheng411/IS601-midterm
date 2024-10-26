@@ -1,4 +1,5 @@
 from decimal import Decimal
+import logging
 from app.calculator import Calculator
 from app.commands import Command
 
@@ -10,5 +11,6 @@ class AddCommand(Command):
 
         num1 = Decimal(args[0])
         num2 = Decimal(args[1])
+        logging.info("Adding %s and %s", num1, num2)
         result = Calculator.add(num1, num2)
         print(f"{num1} + {num2} = {result}.")

@@ -1,14 +1,25 @@
 import importlib
+import logging
+from logging.handlers import RotatingFileHandler
+import os
 import pkgutil
 
+from dotenv import load_dotenv
+
 from app.commands import CommandHandler, Command
+from app.logconfig import setup_logging
 
 
 
 class App():
     def __init__(self):
+
+        setup_logging()
+
+
         self.command_handler = CommandHandler()
         self.load_plugins()  # Load plugins dynamically
+
 
     def start(self):
         print("Welcome to the calculator, type 'exit' to stop.")

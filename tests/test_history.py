@@ -1,6 +1,9 @@
 
 from decimal import Decimal
+import os
 from unittest.mock import MagicMock, patch
+
+from dotenv import load_dotenv
 from app.history import History
 import pandas as pd
 from app.plugins.clearHistory import ClearHistoryCommand
@@ -69,6 +72,7 @@ class TestDeleteHistoryCommand:
     def setup_method(self):
         # Set up sample history data for testing
         # History.clear_history()
+        load_dotenv()
         History.history = pd.DataFrame({
             'Datetime': ['2024-10-10 10:00:00', '2024-10-11 11:00:00', '2024-10-12 12:00:00', '2024-10-13 13:00:00'],
             'Number1': [Decimal('10'), Decimal('20'), Decimal('30'), Decimal('40')],
@@ -76,7 +80,7 @@ class TestDeleteHistoryCommand:
             'Operation': ['add', 'subtract', 'multiply', 'divide'],
             'Result': [Decimal('15'), Decimal('10'), Decimal('45'), Decimal('2')]
         })
-        History.history.to_csv('calculations.csv', index=False)
+        History.history.to_csv(os.getenv("CSV_FILE_PATH"), index=False)
 
     @patch("app.history.History.history.to_csv")
     def test_delete_valid_line(self, mock_to_csv, capsys):

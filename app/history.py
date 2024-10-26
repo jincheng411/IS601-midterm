@@ -1,14 +1,14 @@
 import logging
 import os
+from dotenv import load_dotenv
 import pandas as pd
-from decimal import Decimal
 from datetime import datetime
-from typing import Callable
-
 from app.calculation import Calculation
 
 class History:
-    file_path = os.getenv("CSV_FILE_PATH", 'calculations.csv')
+    # Load environment variables from .env file
+    load_dotenv()
+    file_path = os.getenv("CSV_FILE_PATH")
     history = pd.DataFrame(columns=["Datetime", "Number1", "Number2", "Operation", "Result"])
 
     @classmethod

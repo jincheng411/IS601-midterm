@@ -1,4 +1,5 @@
 import logging
+import os
 import pandas as pd
 from decimal import Decimal
 from datetime import datetime
@@ -7,7 +8,7 @@ from typing import Callable
 from app.calculation import Calculation
 
 class History:
-    file_path = 'calculations.csv'
+    file_path = os.getenv("CSV_FILE_PATH", 'calculations.csv')
     history = pd.DataFrame(columns=["Datetime", "Number1", "Number2", "Operation", "Result"])
 
     @classmethod

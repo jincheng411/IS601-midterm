@@ -26,7 +26,7 @@ class DeleteHistoryCommand(Command):
             History.history = History.history.drop(History.history.index[line_number]).reset_index(drop=True)
             # Save updated history to CSV
             load_dotenv()
-            History.history.to_csv(os.getenv("CSV_FILE_PATH"), index=False)
+            History.history.to_csv(os.path.abspath(os.getenv("CSV_FILE_PATH")), index=False)
             logging.info(f"Deleted line {line_number + 1} from history.")
             print(f"Deleted line {line_number + 1} from history.")
 

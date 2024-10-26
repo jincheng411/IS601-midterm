@@ -12,6 +12,7 @@
   - [Design Patterns](#design-patterns)
   - [Logging Strategy](#logging-strategy)
   - [Configuration with dotenv](#configuration-with-dotenv)
+  - [Exception Handling](#exception-handling)
 ---
 
 ## Project Overview
@@ -48,7 +49,7 @@ Impact: By isolating commands into separate classes, adding new commands becomes
 
 For details on the `command pattern` implementation, see [command pattern in `__init__.py`](https://github.com/jincheng411/IS601-midterm/blob/master/app/commands/__init__.py).
 
-2. lugin Pattern:
+2. plugin Pattern:
 
 *Implementation: Commands are dynamically loaded as plugins using importlib and pkgutil. Each plugin can be registered automatically in load_plugins, making it easy to integrate additional functionality.
 Impact: This allows for a modular approach where new features can be added as plugins rather than hardcoded in the application, encouraging separation of concerns.*
@@ -61,7 +62,7 @@ For details on the `load_plugins` function implementation, see [load_plugins in 
 Impact: This makes the code more scalable, as new calculation types can be added by updating the factory without changing the rest of the codebase.*
 For details on the `factory pattern`  implementation, see [factory in `app.py`](https://github.com/jincheng411/IS601-midterm/blob/master/app/calculation.py#L11-L13).
 
-## Logging Strategy
+### Logging Strategy
 *The logging strategy is designed for flexible, level-based logging that can be configured via environment variables, with separate configurations for development and production.*
 
 1. Configuration:
@@ -78,6 +79,20 @@ Log Levels:
 *Rotation and Retention (if applicable): In production, a log rotation strategy may be implemented to manage log sizes.*
 3. Impact:
 *Effective monitoring through differentiated logging levels helps in quickly identifying critical issues without cluttering logs with general operational information. Configurable log levels ensure flexibility in troubleshooting and tracking during development and production.*
+
+For details on the `logging` function implementation, see [logging in `app.py`](https://github.com/jincheng411/IS601-midterm/blob/master/app/history.py#L21).
+
+
+### Exception Handling(exception-handling)
+*Exception handling in this application is designed to maintain stability and user-friendly feedback by handling errors gracefully and allowing the application to continue running where possible.*
+Rather than checking for conditions before performing an operation, we attempt the operation and handle any exceptions if they occur. This approach simplifies code readability and flow, making it ideal for scenarios where conditions can vary, such as file handling and command execution.
+
+For details on the `EAFP`  implementation, see [division in `__init__.py`](https://github.com/jincheng411/IS601-midterm/blob/master/app/plugins/divide/__init__.py#L18).
+
+
+*another approach is `Look Before You Leap (LBYL)`, This approach emphasizes checking conditions before attempting an operation to ensure that the operation will succeed without resulting in an exception. By verifying the state of objects and conditions, we can prevent errors proactively.*
+For details on the `LBYL`  implementation, see [command handler in `__init__.py`](https://github.com/jincheng411/IS601-midterm/blob/master/app/commands/__init__.py#L19).
+
 
 ## Using the REPL
 The application includes a REPL (Read-Eval-Print Loop) interface, which allows you to interact with it in real-time. This REPL is especially useful for testing commands and experimenting with the app's functionality.
